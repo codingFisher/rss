@@ -1,9 +1,9 @@
 <xml>
 <url>http://feed.smzdm.com</url>
 <email>bioxcy@qq.com</email>
-<time>10</time>
-<smtpuser>yourmail</smtpuser>
-<smtppass>yourpass</smtppass>
+<time>600</time>
+<smtpuser>smzdmni@163.com</smtpuser>
+<smtppass>pass</smtppass>
 <smtpserver>smtp.163.com</smtpserver>
 <smtpname>码鱼</smtpname>
 <smtpsbj>好东西来啦!</smtpsbj>
@@ -11,9 +11,5 @@
 	<key>自行车</key>
 	<key>冰箱</key>
 	<key>手机</key>
-	<key>爽肤水</key>
-	<key>柔肤水</key>
-	<key>安全套</key>
-	<key>避孕套</key>
 </keywords>
 </xml>
