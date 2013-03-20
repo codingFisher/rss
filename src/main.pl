@@ -71,7 +71,7 @@ while(1){
 		}
 		if(@shootArr > 0){
 			$mailContent = join("\n", @shootArr);
-			$mailContent = Encode::encode('UTF-8', $mailContent);
+			$mailContent = Encode::encode('iso-8859-1', $mailContent);
 			mailto($mailContent);
 		}
 	}
