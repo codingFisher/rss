@@ -3,5 +3,5 @@ Rss 订阅
 指定邮箱中。
 订阅者邮箱： coder_xcy@163.com
 订阅网址： http://feed.smzdm.com
-订阅关键词： array('避孕套','自行车', '豆浆机')
+订阅关键词： array('自行车', '豆浆机')
 订阅刷新周期：10min
