@@ -1,0 +1,5 @@
+#!/bin/bash
+latex rssFetcher.tex
+dvipdf rssFetcher.dvi rssFetcher.pdf
+#latex $1.tex
+for a in `ls rssFetcher.* | grep -v tex| grep -v pdf`; do echo $a; rm $a; done

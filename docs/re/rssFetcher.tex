@@ -1,0 +1,47 @@
+\documentclass[a4paper,oneside,12pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mathptmx}
+\newenvironment{SChinese}{
+  \CJKfamily{gkai}
+  \CJKtilde
+  \CJKnospace}{}
+\begin{document}
+%~ \renewcommand{\rmdefault}{ptm}
+\begin{CJK*}{UTF8}{kai}
+\begin{SChinese}
+\begin{center}
+\huge{订阅系统实现}\\
+ \textcolor{blue}{\Large{周期运行}\\}
+ \normalsize{}
+\vspace{1cm} 
+\begin{tabular}{|l|l|}
+\hline
+开发者\\
+\hline
+解朝勇\\
+\hline
+\end{tabular}
+\end{center}
+\begin{flushleft}
+%\hspace{3cm} 图二 运行结果\\
+\section*{1.模糊需求}
+\begin{itemize}
+\item{订阅网站内容}
+\item{提供感兴趣的关键词}
+\item{推送感兴趣内容}
+\item{推送讯息及时性}
+\end{itemize}
+\section*{2.整理需求}
+\begin{enumerate}
+\item{ 提供Email}
+\item{ 提供Keyword}
+\item{ 定期执行}
+\item{ 提供feed网站}
+\end{enumerate}
+\end{flushleft}
+\end{SChinese}
+\end{CJK*}
+\end{document}
