@@ -34,40 +34,44 @@ for($i = 0; $i < @{$keywords}; $i ++){
 	push @keywords, ${$keywords}[$i];
 }
 $search = (join('|', @keywords));
-if($ctt = fetchContent($url)){
-#	$p1 = new XML::Parser::Lite;
-#	$p1 -> setHandlers(
-#		Start => sub {shift; print "Start : @_\n";},
-#		Char => sub {shift; print "Char: @_\n";},
-#		End => sub {shift; print "End: @_\n";}
-#	);
-#	$p1 -> parse($ctt);
-	$ctt = Encode::encode("UTF-8", $ctt);
-	$xml = XML::Simple -> new();
-	$ref = $xml -> XMLin($ctt);
-	#$ref = $xml -> XMLin("feed.xml");
-	#print Dumper ${$ref}{'channel'}{'item'}[0];
-	$len = scalar(@{${$ref}{'channel'}{'item'}});
-	@shootArr; 
-	for($i = 0; $i < $len; $i ++){
-		my $title = ${$ref}{'channel'}{'item'}[$i]{'title'};
-		# This is A bug!!!!
-		if($i > 0){
-			$title = decode("UTF-8", $title);
-		}else{
-		#	$title = decode("UTF-8", $title);
+while(1){
+	if($ctt = fetchContent($url)){
+	#	$p1 = new XML::Parser::Lite;
+	#	$p1 -> setHandlers(
+	#		Start => sub {shift; print "Start : @_\n";},
+	#		Char => sub {shift; print "Char: @_\n";},
+	#		End => sub {shift; print "End: @_\n";}
+	#	);
+	#	$p1 -> parse($ctt);
+		$ctt = Encode::encode("UTF-8", $ctt);
+		$xml = XML::Simple -> new();
+		$ref = $xml -> XMLin($ctt);
+		#$ref = $xml -> XMLin("feed.xml");
+		#print Dumper ${$ref}{'channel'}{'item'}[0];
+		$len = scalar(@{${$ref}{'channel'}{'item'}});
+		@shootArr; 
+		for($i = 0; $i < $len; $i ++){
+			my $title = ${$ref}{'channel'}{'item'}[$i]{'title'};
+			my $link = ${$ref}{'channel'}{'item'}[$i]{'link'};
+			# This is A bug!!!!
+			if($i > 0){
+				$title = decode("UTF-8", $title);
+			}else{
+			#	$title = decode("UTF-8", $title);
+			}
+			if($title =~ /$search/){
+				push @shootArr, $title . " Link: $link";
+	#		print "title: ". ${$ref}{'channel'}{'item'}[$i]{'title'}."\n";
+	#		#print "description: ".${$ref}{'channel'}{'item'}[$i]{'description'}."\n";
+	#		print "content: ".${$ref}{'channel'}{'item'}[$i]{'content:encoded'}."\n";
+			}
 		}
-		if($title =~ /$search/){
-			push @shootArr, $title;
-#		print "title: ". ${$ref}{'channel'}{'item'}[$i]{'title'}."\n";
-#		#print "description: ".${$ref}{'channel'}{'item'}[$i]{'description'}."\n";
-#		print "content: ".${$ref}{'channel'}{'item'}[$i]{'content:encoded'}."\n";
+		if(@shootArr > 0){
+			$mailContent = join("\n", @shootArr);
+			mailto($mailContent);
 		}
 	}
-	if(@shootArr > 0){
-		$mailContent = join("\n", @shootArr);
-		mailto($mailContent);
-	}
+	sleep $time;
 }
 
 sub fetchContent{
