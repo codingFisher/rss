@@ -8,33 +8,34 @@ use XML::Parser::Lite;
 use XML::Simple;
 $conf = "conf.xml";
 $confxml = XML::Simple -> new();
-$ref = $confxml -> XMLin($conf);
-$url = ${$ref}{'url'};
-$email = ${$ref}{'email'};
-$time = ${$ref}{'time'};
-
-$smtpServer = ${$ref}{'smtpserver'};
-$smtpUser = ${$ref}{'smtpuser'};
-$smtpto = ${$ref}{'email'};
-$smtpsbj = ${$ref}{'smtpsbj'};
-$smtpPass = ${$ref}{'smtppass'};
-$smtpname = ${$ref}{'smtpname'};
-$smtpPort = 25;
-
-$keywords =  ${$ref}{'keywords'}{'key'};
-@keywords ;
-for($i = 0; $i < @{$keywords}; $i ++){
-	push @keywords, ${$keywords}[$i];
-}
-$search = (join('|', @keywords));
-$search = Encode::encode('UTF-8', $search);
 while(1){
+	$ref = $confxml -> XMLin($conf);
+	$url = ${$ref}{'url'};
+	$email = ${$ref}{'email'};
+	$time = ${$ref}{'time'};
+	
+	$smtpServer = ${$ref}{'smtpserver'};
+	$smtpUser = ${$ref}{'smtpuser'};
+	$smtpto = ${$ref}{'email'};
+	$smtpsbj = ${$ref}{'smtpsbj'};
+	$smtpPass = ${$ref}{'smtppass'};
+	$smtpname = ${$ref}{'smtpname'};
+	$smtpPort = 25;
+	
+	$keywords =  ${$ref}{'keywords'}{'key'};
+	@keywords ;
+	for($i = 0; $i < @{$keywords}; $i ++){
+		push @keywords, ${$keywords}[$i];
+	}
+	$search = (join('|', @keywords));
+	$search = Encode::encode('UTF-8', $search);
+	
 	if($ctt = fetchContent($url)){
 		$ctt = Encode::encode("UTF-8", $ctt);
 		$xml = XML::Simple -> new();
 		$ref = $xml -> XMLin($ctt);
 		$len = scalar(@{${$ref}{'channel'}{'item'}});
-		@shootArr; 
+		@shootArr = (); 
 		for($i = 0; $i < $len; $i ++){
 			my $title = ${$ref}{'channel'}{'item'}[$i]{'title'};
 			my $link = ${$ref}{'channel'}{'item'}[$i]{'link'};
