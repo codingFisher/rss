@@ -23,7 +23,7 @@ while(1){
 	$smtpPort = 25;
 	
 	$keywords =  ${$ref}{'keywords'}{'key'};
-	@keywords ;
+	@keywords = ();
 	for($i = 0; $i < @{$keywords}; $i ++){
 		push @keywords, ${$keywords}[$i];
 	}
