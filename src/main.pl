@@ -7,7 +7,7 @@ use LWP::Simple;
 use utf8;
 use XML::Parser::Lite;
 use XML::Simple;
-binmode(STDOUT, ":decoding(utf8)");
+#binmode(STDOUT, ":decoding(utf8)");
 #binmode(STDOUT, ":encoding(utf8)");
 #print $ctt;
 $conf = "conf.xml";
@@ -34,6 +34,7 @@ for($i = 0; $i < @{$keywords}; $i ++){
 	push @keywords, ${$keywords}[$i];
 }
 $search = (join('|', @keywords));
+$search = Encode::encode('UTF-8', $search);
 while(1){
 	if($ctt = fetchContent($url)){
 	#	$p1 = new XML::Parser::Lite;
@@ -54,11 +55,13 @@ while(1){
 			my $title = ${$ref}{'channel'}{'item'}[$i]{'title'};
 			my $link = ${$ref}{'channel'}{'item'}[$i]{'link'};
 			# This is A bug!!!!
+			print "title: " . $title."\n";
 			if($i > 0){
-				$title = decode("UTF-8", $title);
+			#	$title = decode("UTF-8", $title);
 			}else{
 			#	$title = decode("UTF-8", $title);
 			}
+			print Dumper $title;
 			if($title =~ /$search/){
 				push @shootArr, $title . " Link: $link";
 	#		print "title: ". ${$ref}{'channel'}{'item'}[$i]{'title'}."\n";
@@ -68,6 +71,7 @@ while(1){
 		}
 		if(@shootArr > 0){
 			$mailContent = join("\n", @shootArr);
+			$mailContent = Encode::encode('UTF-8', $mailContent);
 			mailto($mailContent);
 		}
 	}
